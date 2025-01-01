@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('SKU')->unique(); // Unique index
             $table->float('price', 10, 2); // Default price per unit
-            $table->unsignedInteger('initial_stock_quantity');
-            $table->unsignedInteger('current_stock_quantity');
+            $table->unsignedInteger('initial_stock_quantity')->default(0);
+            $table->unsignedInteger('current_stock_quantity')->default(0);
             $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null'); // Foreign key with cascade on delete
 
             $table->softDeletes(); // For soft deletes
