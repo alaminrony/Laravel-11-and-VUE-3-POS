@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProductRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +23,16 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'          => 'required|string|max:255',
-            'SKU'           => 'required|unique:products,SKU|regex:/^\S*$/',
-            'price'         => 'required|numeric',
+            'name' => 'required|string|max:255',
+            'SKU' => [
+                'required',
+                'regex:/^\S*$/', // Ensure no spaces in SKU
+                Rule::unique('products', 'SKU')->ignore($this->route('id')),
+            ],
+            'price' => 'required|numeric',
         ];
     }
+
 
     public function messages(): array
     {

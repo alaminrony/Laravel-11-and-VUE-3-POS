@@ -6,13 +6,13 @@ use App\Models\Product;
 
 interface ProductRepositoryInterface
 {
-    // public function all(): array;
+    public function getAllProduct(array $filterData);
 
-    // public function find(int $id): ?Product;
+    public function find(int $id);
 
-    public function create(array $data): Product;
+    public function create(array $data);
 
-    // public function update(int $id, array $data): bool;
+    public function update(int $id,array $data);
 
-    // public function delete(int $id): bool;
+    public function delete(int $id);
 }

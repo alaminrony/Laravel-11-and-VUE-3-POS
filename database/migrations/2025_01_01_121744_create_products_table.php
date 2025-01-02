@@ -25,7 +25,6 @@ return new class extends Migration
 
             // Additional indexes
             $table->index('name');
-            $table->index('SKU');
         });
     }
 

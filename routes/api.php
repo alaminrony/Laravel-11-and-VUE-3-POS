@@ -23,10 +23,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     //All api for Products
-    Route::controller(ProductController::class)->prefix('products')->group(function () {
-        Route::get('/',                             'index')->name('product.index');
+    Route::controller(ProductController::class)->prefix('product')->group(function () {
+        Route::get('/list',                         'index')->name('product.index');
         Route::post('/store',                       'store')->name('product.store');
         Route::put('/{id}/update',                  'update')->name('product.update');
-        Route::delete('/{id}/delete',               'destroy')->name('product.destroy');
+        Route::delete('/{id}/delete',               'delete')->name('product.delete');
     });
+
 });
