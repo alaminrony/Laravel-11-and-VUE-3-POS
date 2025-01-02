@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\Product\StoreProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 
 class ProductController extends Controller
 {
