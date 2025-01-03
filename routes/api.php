@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupplierController;
 
 /*
@@ -40,5 +41,14 @@ Route::prefix('v1')->group(function () {
         Route::delete('/{id}/delete',               'delete')->name('supplier.delete');
     });
     //End api for Supplier
+
+
+    //Start api for Purchase Order
+    Route::controller(PurchaseController::class)->prefix('purchase')->group(function () {
+        Route::get('/list',                         'index')->name('purchase.index');
+        Route::get('/{id}/details',                 'show')->name('purchase.show');
+        Route::post('/store',                       'store')->name('purchase.store');
+    });
+    //End api for Purchase Order
 
 });

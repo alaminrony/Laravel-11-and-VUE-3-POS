@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Http\Resources\Supplier\SupplierResource;
+use App\Http\Resources\Supplier\SupplierResourceCollection;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Contracts\SupplierRepositoryInterface;
@@ -18,9 +20,7 @@ class SupplierRepository implements SupplierRepositoryInterface
                 $Suppliers = $Suppliers->where('name', 'LIKE', "%{$filterData['name']}%");
             }
 
-            $Suppliers = $Suppliers->paginate(10);
-
-            return $Suppliers;
+            return new SupplierResourceCollection($Suppliers->paginate(10));
         } catch (\Exception $e) {
 
             logger()->error('Error fetching Suppliers: ' . $e->getMessage());
@@ -50,7 +50,7 @@ class SupplierRepository implements SupplierRepositoryInterface
             $Supplier->save();
 
             DB::commit();
-            return $Supplier;
+            return new SupplierResource($Supplier);
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -78,7 +78,7 @@ class SupplierRepository implements SupplierRepositoryInterface
 
             DB::commit();
 
-            return $Supplier;
+            return new SupplierResource($Supplier);
         } catch (\Exception $e) {
             DB::rollBack();
             logger()->error("Error updating Supplier with ID {$id}: " . $e->getMessage());

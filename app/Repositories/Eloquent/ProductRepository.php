@@ -4,6 +4,8 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\Product\ProductResourceCollection;
 use App\Repositories\Contracts\ProductRepositoryInterface;
 
 class ProductRepository implements ProductRepositoryInterface
@@ -23,9 +25,8 @@ class ProductRepository implements ProductRepositoryInterface
                 $products = $products->where('SKU', 'LIKE', "%{$filterData['SKU']}%");
             }
 
-            $products = $products->paginate(10);
+            return new ProductResourceCollection($products->paginate(10));
 
-            return $products;
         } catch (\Exception $e) {
 
             logger()->error('Error fetching Products: ' . $e->getMessage());
@@ -58,7 +59,7 @@ class ProductRepository implements ProductRepositoryInterface
             $product->save();
 
             DB::commit();
-            return $product;
+            return new ProductResource($product);
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -89,13 +90,13 @@ class ProductRepository implements ProductRepositoryInterface
             }
 
             $product->initial_stock_quantity    = $data['initial_stock_quantity'] ?? 0;
-            $product->category_idc               = $data['category_id'] ?? NULL;
+            $product->category_id               = $data['category_id'] ?? NULL;
             $product->save();
 
 
             DB::commit();
+            return new ProductResource($product);
 
-            return $product;
         } catch (\Exception $e) {
             DB::rollBack();
             logger()->error("Error updating Product with ID {$id}: " . $e->getMessage());
