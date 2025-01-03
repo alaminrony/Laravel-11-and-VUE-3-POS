@@ -4,21 +4,17 @@
 
 npm install vue@^3 vue-loader@^17
 
+## Installing vite 
+
+npm install vite @vitejs/plugin-vue vue@^3
+
+## Install vue router 
+
+npm install vue-router@4
+
 ## Update vite.config.js
 
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
-import vue from '@vitejs/plugin-vue';
 
-export default defineConfig({
-    plugins: [
-        laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
-            refresh: true,
-        }),
-        vue(),
-    ],
-});
 
 
 ## Edit my resources/js/app.js file
@@ -31,24 +27,12 @@ createApp(App).mount('#app');
 
 ## Create a new App.vue file in resources/js
 
-<template>
-  <div id="app">
-    <h1>Hello Vue 3!</h1>
-  </div>
-</template>
 
-<script>
-export default {
-  name: "App",
-};
-</script>
-
-<style>
-/* Add your styles here */
-</style>
 
 ## npm install
 ## npm run dev
+
+
 
 
 
